@@ -1607,7 +1607,9 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                 contents: '=?',
                 headerContents: '=?',
                 formatters: '=?',
-                headerFormatter: '=?'
+                headerFormatter: '=?',
+                onChangeScale: '&',
+                scaleOptions: '<?'
             },
             link: function(scope, element, attrs, ganttCtrl) {
                 var api = ganttCtrl.gantt.api;
@@ -1646,6 +1648,23 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                 if (scope.formatters === undefined) {
                     scope.formatters = {};
                 }
+
+                if (scope.scaleOptions === undefined) {
+                    scope.scaleOptions = {};
+                }
+
+                if (scope.onChangeScale === undefined) {
+                    window.console.log('onChnageScale undefined');
+                    // scope.onChnageScale = {};
+                }
+
+
+
+                scope.scaleClicked = function(param) {
+                    window.console.log(scope);
+                    scope.onChangeScale({param: param});
+                }; 
+
 
                 api.directives.on.new(scope, function(directiveName, sideContentScope, sideContentElement) {
                     if (directiveName === 'ganttSideContent') {
@@ -4213,14 +4232,16 @@ angular.module('gantt.sortable.templates', []).run(['$templateCache', function (
 angular.module('gantt.table.templates', []).run(['$templateCache', function ($templateCache) {
     $templateCache.put('plugins/table/sideContentTable.tmpl.html',
         '<div class="gantt-side-content-table">\n' +
-        '\n' +
+        '    <div class="gantt-side-header scale-options" ng-style="{height: ganttHeaderHeight + \'px\'}">\n' +
+        '        <a ng-click="pluginScope.scaleClicked(option.value)" ng-repeat="option in pluginScope.scaleOptions" ng-class="{\'active\': option.value==$root.selectedScale}" ng-model="$root.selectedScale">{{option.name}}</a>\n' +
+        '    </div>\n' +
         '    <div class="gantt-table-column {{getClass()}}" ng-repeat="column in pluginScope.columns" ng-controller="TableColumnController">\n' +
         '\n' +
-        '        <div class="gantt-table-header" ng-style="{height: ganttHeaderHeight + \'px\'}">\n' +
+        '        <!-- <div class="gantt-table-header" ng-style="{height: ganttHeaderHeight + \'px\'}">\n' +
         '            <div ng-show="ganttHeaderHeight" class="gantt-row-label-header gantt-row-label gantt-table-row gantt-table-header-row">\n' +
         '                <span class="gantt-label-text" gantt-bind-compile-html="getHeaderContent()"/>\n' +
         '            </div>\n' +
-        '        </div>\n' +
+        '        </div> -->\n' +
         '\n' +
         '        <div class="gantt-table-content" ng-style="getMaxHeightCss()">\n' +
         '            <div gantt-vertical-scroll-receiver>\n' +

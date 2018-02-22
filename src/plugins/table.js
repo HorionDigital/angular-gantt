@@ -15,7 +15,9 @@
                 contents: '=?',
                 headerContents: '=?',
                 formatters: '=?',
-                headerFormatter: '=?'
+                headerFormatter: '=?',
+                onChangeScale: '&',
+                scaleOptions: '<?'
             },
             link: function(scope, element, attrs, ganttCtrl) {
                 var api = ganttCtrl.gantt.api;
@@ -54,6 +56,23 @@
                 if (scope.formatters === undefined) {
                     scope.formatters = {};
                 }
+
+                if (scope.scaleOptions === undefined) {
+                    scope.scaleOptions = {};
+                }
+
+                if (scope.onChangeScale === undefined) {
+                    window.console.log('onChnageScale undefined');
+                    // scope.onChnageScale = {};
+                }
+
+
+
+                scope.scaleClicked = function(param) {
+                    window.console.log(scope);
+                    scope.onChangeScale({param: param});
+                }; 
+
 
                 api.directives.on.new(scope, function(directiveName, sideContentScope, sideContentElement) {
                     if (directiveName === 'ganttSideContent') {

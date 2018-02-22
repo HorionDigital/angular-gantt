@@ -1,12 +1,14 @@
 <div class="gantt-side-content-table">
-
+    <div class="gantt-side-header scale-options" ng-style="{height: ganttHeaderHeight + 'px'}">
+        <a ng-click="pluginScope.scaleClicked(option.value)" ng-repeat="option in pluginScope.scaleOptions" ng-class="{'active': option.value==$root.selectedScale}" ng-model="$root.selectedScale">{{option.name}}</a>
+    </div>
     <div class="gantt-table-column {{getClass()}}" ng-repeat="column in pluginScope.columns" ng-controller="TableColumnController">
 
-        <div class="gantt-table-header" ng-style="{height: ganttHeaderHeight + 'px'}">
+        <!-- <div class="gantt-table-header" ng-style="{height: ganttHeaderHeight + 'px'}">
             <div ng-show="ganttHeaderHeight" class="gantt-row-label-header gantt-row-label gantt-table-row gantt-table-header-row">
                 <span class="gantt-label-text" gantt-bind-compile-html="getHeaderContent()"/>
             </div>
-        </div>
+        </div> -->
 
         <div class="gantt-table-content" ng-style="getMaxHeightCss()">
             <div gantt-vertical-scroll-receiver>
