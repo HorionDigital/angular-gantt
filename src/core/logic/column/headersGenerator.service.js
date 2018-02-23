@@ -6,6 +6,12 @@
             var header;
 
             var viewScale = columnsManager.getHeaderScale(headerName);
+            var customHeader = false;
+            window.console.log(headerName);
+            if (headerName === 'weather') {
+                customHeader = headerName;
+                viewScale = columnsManager.getHeaderScale('hour');
+            }
 
             var viewScaleValue;
             var viewScaleUnit;
@@ -21,6 +27,8 @@
                 viewScaleValue = 1;
                 viewScaleUnit = viewScale;
             }
+
+            window.console.log(viewScale, viewScaleValue, viewScaleUnit);
 
             if(columnsManager.columns.length > 0){
                 var currentColumn = columnsManager.columns[0];
@@ -41,8 +49,9 @@
 
                     if (width > 0) {
                         var labelFormat = columnsManager.getHeaderFormat(headerName);
+                        window.console.log(labelFormat);
 
-                        header = new ColumnHeader(currentDate, endDate, viewScaleUnit, currentPosition, width, labelFormat, headerName);
+                        header = new ColumnHeader(currentDate, endDate, viewScaleUnit, currentPosition, width, labelFormat, headerName, customHeader);
                         generatedHeaders.push(header);
                     }
 
@@ -50,7 +59,9 @@
                         break;
                     }
 
+
                     currentColumn = column;
+                    window.console.log(column);
                     currentDate = endDate;
                 }
             }
