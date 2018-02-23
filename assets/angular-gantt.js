@@ -60,7 +60,8 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                 timeFramesMagnet: '=?',
                 data: '=?',
                 api: '=?',
-                options: '=?'
+                options: '=?',
+                customData: '=?'
             },
             controller: ['$scope', '$element', function($scope, $element) {
                 for (var option in $scope.options) {
@@ -1563,6 +1564,8 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                 to = this.gantt.options.value('toDate');
             }
 
+            window.console.log(this.gantt.options.value('customData'));
+
             if (!from || (moment.isMoment(from) && !from.isValid())) {
                 from = this.gantt.rowsManager.getDefaultFrom();
                 if (!from) {
@@ -1927,6 +1930,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                 customHeader = headerName;
                 viewScale = columnsManager.getHeaderScale('hour');
             }
+            // console.log()
 
             var viewScaleValue;
             var viewScaleUnit;
@@ -1943,7 +1947,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                 viewScaleUnit = viewScale;
             }
 
-            window.console.log(viewScale, viewScaleValue, viewScaleUnit);
+            // window.console.log(viewScale, viewScaleValue, viewScaleUnit);
 
             if(columnsManager.columns.length > 0){
                 var currentColumn = columnsManager.columns[0];
@@ -1964,7 +1968,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
 
                     if (width > 0) {
                         var labelFormat = columnsManager.getHeaderFormat(headerName);
-                        window.console.log(labelFormat);
+                        // window.console.log(labelFormat);
 
                         header = new ColumnHeader(currentDate, endDate, viewScaleUnit, currentPosition, width, labelFormat, headerName, customHeader);
                         generatedHeaders.push(header);
@@ -1976,7 +1980,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
 
 
                     currentColumn = column;
-                    window.console.log(column);
+                    // window.console.log(column);
                     currentDate = endDate;
                 }
             }

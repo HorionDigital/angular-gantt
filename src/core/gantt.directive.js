@@ -53,7 +53,8 @@
                 timeFramesMagnet: '=?',
                 data: '=?',
                 api: '=?',
-                options: '=?'
+                options: '=?',
+                customData: '=?'
             },
             controller: ['$scope', '$element', function($scope, $element) {
                 for (var option in $scope.options) {
