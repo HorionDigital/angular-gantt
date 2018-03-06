@@ -4,13 +4,15 @@
         var generateHeader = function(columnsManager, headerName) {
             var generatedHeaders = [];
             var header;
+            var customData;
 
             var viewScale = columnsManager.getHeaderScale(headerName);
             var customHeader = false;
             window.console.log(headerName);
             if (headerName === 'weather') {
+                customData = columnsManager.gantt.options.value('customData').data;
                 customHeader = headerName;
-                viewScale = columnsManager.getHeaderScale('hour');
+                viewScale = columnsManager.getHeaderScale(columnsManager.gantt.options.value('headers')[0]);
             }
             // console.log()
 
@@ -50,9 +52,14 @@
 
                     if (width > 0) {
                         var labelFormat = columnsManager.getHeaderFormat(headerName);
-                        // window.console.log(labelFormat);
 
-                        header = new ColumnHeader(currentDate, endDate, viewScaleUnit, currentPosition, width, labelFormat, headerName, customHeader);
+                        if (customData && customData[viewScale][currentDate.toISOString()]) {
+                            var dateData = customData[viewScale][currentDate.toISOString()].data || {};
+                            // window.console.log(currentDate.toISOString(), dateData);
+                            header = new ColumnHeader(currentDate, endDate, viewScaleUnit, currentPosition, width, labelFormat, headerName, customHeader, dateData);
+                        } else {
+                            header = new ColumnHeader(currentDate, endDate, viewScaleUnit, currentPosition, width, labelFormat, headerName, customHeader);
+                        }
                         generatedHeaders.push(header);
                     }
 

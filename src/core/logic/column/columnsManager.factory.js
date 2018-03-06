@@ -119,8 +119,6 @@
                 to = this.gantt.options.value('toDate');
             }
 
-            window.console.log(this.gantt.options.value('customData'));
-
             if (!from || (moment.isMoment(from) && !from.isValid())) {
                 from = this.gantt.rowsManager.getDefaultFrom();
                 if (!from) {
